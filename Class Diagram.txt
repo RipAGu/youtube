@@ -1,0 +1,48 @@
+MainUi Class
+- 전체적인 Ui를 디자인 새창추가
+
+AddPlaylistUiClass
+- 재생목록 추가 창 ui 클래스
+
+AddVideoUiClass
+- 비디오 추가 창 ui 클래스
+
+LoginPageClass
+- 아이디 및 패스워드 입력기능
+- 회원가입 버튼 기능 (회원가입 페이지로 이동)
+- 로그인버튼 기능(로그인페이지로 이동)
+- 아이디 및 패스워드 확인기능 (DB와 연동)
+
+RegisterPageClass 
+- 아이디 중복확인 기능
+- 비밀번호 확인기능 (두번 다 동일하게 입력해야 가입가능)
+- 회원가입 버튼기능 (회원가입 성공시 입력된 정보를 clear한 후 로그인페이지로 이동)
+
+PlaylistPageClass
+- 재생목록 추가기능 
+- 재생목록 삭제기능
+- 뒤로가기기능 (로그아웃 후 로그인페이지로 이동)
+- 사용자 이름 출력기능
+- 재생목록클릭시 해당 재생목록 동영상페이지로 이동
+
+VideoPageClass
+- 영상추가 기능 
+- 뒤로가기 기능 (클릭시 재생목록페이지로 이동)
+- 영상삭제 기능
+- 재생, 일시정지, 정지 기능
+- 볼륨조절 기능
+- 영상제목 출력기능
+
+VideoThreadClass
+- 영상출력
+
+DatabaseClass
+- 기본적인 CRUD기능
+- 테이블
+ 1. membertable
+  * 사용자의 아이디, 비밀번호, 이름 저장 PK로 아이디를 지정
+ 2. playlistTable
+  * PK로 autoincrement지정, memberTable의 아이디 정보를 FK로 참조, 재생목록의 이름 저장
+ 3. VideoTable
+  * PK로 autoincrement지정, memberTable의 아이디 정보를 FK로 참조, 동영상의 이름 및 주소저장 
+
