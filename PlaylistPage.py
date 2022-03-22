@@ -1,8 +1,7 @@
-from sympy import quadratic_congruence
 from AddPlaylistWindow import AddPlaylistWindow
 from PyQt5 import QtWidgets, QtCore, QtGui
 from Database import Database
-from PrintInfo import PrintInfo
+from Common import Common
 import sys
 class PlaylistPage(QtWidgets.QDialog):
     def __init__(self, mainUi, userName, nowId):
@@ -31,7 +30,7 @@ class PlaylistPage(QtWidgets.QDialog):
 
     
     def createBtnEvent(self):
-        information = PrintInfo(self.mainUi)
+        information = Common(self.mainUi)
         self.playlistName = self.addPage.nameInput.text()
         if len(self.playlistName) == 0:
             information.InfoMessage("Warning", "최소 1자를 입력해주세요!", 2)
@@ -93,7 +92,7 @@ class PlaylistPage(QtWidgets.QDialog):
         pass
 
     def deleteBtnEvent(self, event, point):
-        information = PrintInfo(self.mainUi)
+        information = Common(self.mainUi)
         reply = information.yesnoMessage("Warning", "삭제하시겠습니까?")
         if reply == True:
             print(point)

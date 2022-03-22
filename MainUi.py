@@ -1,9 +1,12 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import sys
+from pyparsing import common_html_entity
 from sympy import Q
 from platform import system
+from Common import Common
 class MainUi:
     def __init__(self):
+        self.common = Common([])
         self.MainWindow = QtWidgets.QMainWindow()
         self.MainWindow.setFixedSize(1600, 800)
         self.MainWindow.setWindowTitle("YouTube")
@@ -20,7 +23,7 @@ class MainUi:
         pixmap = QtGui.QPixmap("./youtube-logo.jpg")
         self.youtubeLogoLabel.setPixmap(QtGui.QPixmap("./youtube-logo.jpg"))
         self.loginLabel = QtWidgets.QLabel(self.loginPage)
-        self.setFont("Malgun Gothic", 20, True, 75)
+        self.font = self.common.setFont("Malgun Gothic", 20, True, 75)
         self.loginLabel.setGeometry(QtCore.QRect(650, 320, 100, 35))
         self.loginLabel.setFont(self.font)
         self.loginLabel.setStyleSheet(
@@ -28,7 +31,7 @@ class MainUi:
         )
         self.loginLabel.setText("로그인")
         self.idPwLabelList = []
-        self.setFont("Malgun Gothic", 15, [], [])
+        self.font = self.common.setFont("Malgun Gothic", 15, [], [])
         for index in range(0, 2):
             idPwLabel = QtWidgets.QLabel(self.loginPage)
             idPwLabel.setGeometry(QtCore.QRect(590, 370 + index*50, 50, 30))
@@ -49,7 +52,7 @@ class MainUi:
             self.idPwInputList.append(idPwInput)
         self.idPwInputList[1].setEchoMode(QtWidgets.QLineEdit.Password)
         self.loginErrorLabel = QtWidgets.QLabel(self.loginPage)
-        self.setFont("Malgun Gothic", 9, False, 75)
+        self.font = self.common.setFont("Malgun Gothic", 9, False, 75)
         self.loginErrorLabel.setGeometry(QtCore.QRect(650, 460, 300, 15))
         self.loginErrorLabel.setFont(self.font)
         self.loginErrorLabel.setStyleSheet(
@@ -61,7 +64,7 @@ class MainUi:
             "background-color : red;"
             "color : white;"
         )
-        self.setFont("Malgun Gothic", 12, False, [])
+        self.font = self.common.setFont("Malgun Gothic", 12, False, [])
         self.loginBtn.setFont(self.font)
         self.loginBtn.setText("로그인")
         self.loginBtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
@@ -70,7 +73,7 @@ class MainUi:
         self.registerPageBtn.setStyleSheet(
             "color : white;"
         )
-        self.setFont("Malgun Gothic", 9, False, [])
+        self.font = self.common.setFont("Malgun Gothic", 9, False, [])
         self.registerPageBtn.setFont(self.font)
         self.registerPageBtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.registerPageBtn.setText("회원가입")
@@ -84,7 +87,7 @@ class MainUi:
         self.stackedWidget.addWidget(self.registerPage)
         self.registerLogoLabel = QtWidgets.QLabel(self.registerPage)
         self.registerLogoLabel.setGeometry(QtCore.QRect(735, 80, 170, 45))
-        self.setFont("Malgun Gothic", 25, True, 75)
+        self.font = self.common.setFont("Malgun Gothic", 25, True, 75)
         self.registerLogoLabel.setStyleSheet(
             "color : white;"
         )
@@ -95,7 +98,7 @@ class MainUi:
         self.idLabel.setStyleSheet(
             "color : white;"
         )
-        self.setFont("Malgun Gothic", 12, False, [])
+        self.font = self.common.setFont("Malgun Gothic", 12, False, [])
         self.idLabel.setFont(self.font)
         self.idLabel.setText("아이디")
         self.pwLabeList = []
@@ -140,7 +143,7 @@ class MainUi:
         self.registerIdErrorLabel.setStyleSheet(
             "color : red;"
         )
-        self.setFont("Malgun Gothic", 9, False, [])
+        self.font = self.common.setFont("Malgun Gothic", 9, False, [])
         self.registerIdErrorLabel.setFont(self.font)
         self.registerPwErrorLabel = QtWidgets.QLabel(self.registerPage)
         self.registerPwErrorLabel.setGeometry(QtCore.QRect(650, 410, 210, 15))
@@ -169,7 +172,7 @@ class MainUi:
             "background-color : red;"
             "color : white;"
         )
-        self.setFont("Malgun Gothic", 12, False, [])
+        self.font = self.common.setFont("Malgun Gothic", 12, False, [])
         self.registerApplyBtn.setFont(self.font)
         self.registerApplyBtn.setText("회원가입")
         self.registerApplyBtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
@@ -178,7 +181,7 @@ class MainUi:
         self.registerBackBtn.setStyleSheet(
             "color : white;"
         )
-        self.setFont("Malgun Gothic", 9, False, [])
+        self.font = self.common.setFont("Malgun Gothic", 9, False, [])
         self.registerBackBtn.setFont(self.font)
         self.registerBackBtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.registerBackBtn.setText("뒤로가기")
@@ -192,7 +195,7 @@ class MainUi:
         self.stackedWidget.addWidget(self.playlistPage)
         self.nameLabel = QtWidgets.QLabel(self.playlistPage)
         self.nameLabel.setGeometry(QtCore.QRect(30, 30, 150, 30))
-        self.setFont("Malgun Gothic", 15, True, 75)
+        self.font = self.common.setFont("Malgun Gothic", 15, True, 75)
         self.nameLabel.setFont(self.font)
         self.nameLabel.setStyleSheet(
             "color : white;"
@@ -203,7 +206,7 @@ class MainUi:
             "background-color : red;"
             "color : white;"
         )
-        self.setFont("Malgun Gothic", 10, True, 75)
+        self.font = self.common.setFont("Malgun Gothic", 10, True, 75)
         self.addPlaylistBtn.setFont(self.font)
         self.addPlaylistBtn.setText("+재생목록 추가")
         self.addPlaylistBtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
@@ -231,7 +234,7 @@ class MainUi:
             "color : white;"
         )
         self.addVideoBtn.setGeometry(QtCore.QRect(1250, 40, 150, 35))
-        self.setFont("Malgun Gothic", 10, True, 75)
+        self.font = self.common.setFont("Malgun Gothic", 10, True, 75)
         self.addVideoBtn.setFont(self.font)
         self.addVideoBtn.setText("+ 영상추가")
         self.addVideoBtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
@@ -249,7 +252,7 @@ class MainUi:
         self.videoTable.setStyleSheet(
             "color : white"
         )
-        self.setFont("Malgun Gothic", 15, False, [])
+        self.font = self.common.setFont("Malgun Gothic", 15, False, [])
         self.videoTable.setFont(self.font)
         self.videoTable.autoScrollMargin()
         for i in range(0, 40):
@@ -260,7 +263,7 @@ class MainUi:
             "background-color : red;"
             "color : white;"
         )
-        self.setFont("Malgun Gothic", 10, False, [])
+        self.font = self.common.setFont("Malgun Gothic", 10, False, [])
         self.videoDeleteBtn.setFont(self.font)
         self.videoDeleteBtn.setText("삭제")
         self.videoDeleteBtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))

@@ -1,4 +1,4 @@
-from PrintInfo import PrintInfo
+from Common import Common
 from Database import Database
 
 class RegisterPage:
@@ -36,7 +36,7 @@ class RegisterPage:
 
     def registerBtnEvent(self):
         db = Database()
-        information = PrintInfo(self.mainUi)
+        information = Common(self.mainUi)
         idValue = self.mainUi.registerIdInput.text()
         pwValueList = [] 
         for index in range(0, 2):

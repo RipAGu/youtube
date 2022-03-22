@@ -1,5 +1,5 @@
-from PyQt5 import QtWidgets
-class PrintInfo:
+from PyQt5 import QtWidgets, QtCore, QtGui
+class Common:
     def __init__(self, mainUi):
         self.mainUi = mainUi
 
@@ -39,3 +39,12 @@ class PrintInfo:
             return True
         else:
             return False
+    def setFont(self, fontName, fontSize, useBold, fontweight):
+        self.font = QtGui.QFont()
+        self.font.setFamily(fontName)
+        self.font.setPointSize(fontSize)
+        if useBold == True:
+            self.font.setBold(useBold)
+            self.font.setWeight(fontweight)
+        return self.font
+            
