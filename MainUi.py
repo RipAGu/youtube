@@ -247,16 +247,30 @@ class MainUi:
         self.videoPageBackBtn.setFont(self.font)
         self.videoPageBackBtn.setText("뒤로가기")
         self.videoPageBackBtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.videoTable = QtWidgets.QListWidget(self.videoPage)
-        self.videoTable.setGeometry(QtCore.QRect(1250, 120, 190, 550))
-        self.videoTable.setStyleSheet(
-            "color : white"
-        )
-        self.font = self.common.setFont("Malgun Gothic", 15, False, [])
-        self.videoTable.setFont(self.font)
-        self.videoTable.autoScrollMargin()
-        for i in range(0, 40):
-            self.videoTable.insertItem(i, "test")
+
+
+
+        # self.videoTable = QtWidgets.QListWidget(self.videoPage)
+        # self.videoTable.setGeometry(QtCore.QRect(1250, 120, 190, 550))
+        # self.videoTable.setStyleSheet(
+        #     "color : white"
+        # )
+        # self.testIcon = QtGui.QIcon('./가위.gif')
+        # self.iconItem = QtWidgets.QListWidgetItem(self.testIcon, "테스트")
+        # self.font = self.common.setFont("Malgun Gothic", 20, False, [])
+        # self.iconItem.setFont(self.font)
+        # self.videoTable.setFont(self.font)
+        # self.videoTable.autoScrollMargin()
+        # for i in range(0, 40):
+        #     self.videoTable.insertItem(i, self.iconItem)
+
+
+
+        formLayout = QtWidgets.QFormLayout()
+        groupbox = QtWidgets.QGroupBox()
+        
+
+
         self.videoDeleteBtn = QtWidgets.QPushButton(self.videoPage)
         self.videoDeleteBtn.setGeometry(QtCore.QRect(1480, 120, 100, 25))
         self.videoDeleteBtn.setStyleSheet(
@@ -330,7 +344,7 @@ class MainUi:
 
 
         self.MainWindow.setCentralWidget(self.centralWidget)
-        self.stackedWidget.setCurrentIndex(0)
+        self.stackedWidget.setCurrentIndex(3)
         self.MainWindow.show()
 
 
