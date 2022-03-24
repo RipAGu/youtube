@@ -249,7 +249,29 @@ class MainUi:
         self.videoPageBackBtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
 
 
+        self.videoScrollArea = QtWidgets.QScrollArea(self.videoPage)
+        self.videoScrollArea.setGeometry(QtCore.QRect(1250, 100, 250, 620))
+        self.videoScrollArea.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.videoScrollArea.setWidgetResizable(True)
+        self.videoScrollWidgetContents = QtWidgets.QWidget()
+        self.videoScrollWidgetContents.setGeometry(QtCore.QRect(-1, 0, 230, 635))
+        self.videoFormLayout = QtWidgets.QFormLayout(self.videoScrollWidgetContents)
 
+        # self.groupBox = QtWidgets.QGroupBox(self.videoScrollWidgetContents)
+        # self.groupBox.setMinimumSize(QtCore.QSize(200, 200))
+        # self.font = self.common.setFont("Malgun Gothic", 10, False, [])
+        # self.groupBox.setFont(self.font)
+        # self.groupBox.setStyleSheet("color : white;")
+        # self.groupBox.setTitle("test")
+        # self.testBtn = QtWidgets.QPushButton(self.groupBox)
+        # self.testBtn.setGeometry(QtCore.QRect(50, 140, 90, 30))
+        # self.testBtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        # self.testBtn.setStyleSheet("background-color : red;")
+
+        # self.videoFormLayout.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.groupBox)
+        self.videoScrollArea.setWidget(self.videoScrollWidgetContents)
+
+     
         # self.videoTable = QtWidgets.QListWidget(self.videoPage)
         # self.videoTable.setGeometry(QtCore.QRect(1250, 120, 190, 550))
         # self.videoTable.setStyleSheet(
@@ -272,12 +294,12 @@ class MainUi:
 
 
         self.videoDeleteBtn = QtWidgets.QPushButton(self.videoPage)
-        self.videoDeleteBtn.setGeometry(QtCore.QRect(1480, 120, 100, 25))
+        self.videoDeleteBtn.setGeometry(QtCore.QRect(1480, 120, 100, 30))
         self.videoDeleteBtn.setStyleSheet(
             "background-color : red;"
             "color : white;"
         )
-        self.font = self.common.setFont("Malgun Gothic", 10, False, [])
+        self.font = self.common.setFont("Malgun Gothic", 10, True, 75)
         self.videoDeleteBtn.setFont(self.font)
         self.videoDeleteBtn.setText("삭제")
         self.videoDeleteBtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
@@ -301,23 +323,6 @@ class MainUi:
     
 
         
-        # for index in range(0, 20):
-        #     testBtn = QtWidgets.QPushButton(self.scrollAreaWidgetContents)
-        #     # testBtn.setGeometry(QtCore.QRect(0, 0 + 50*index, 100, 30))
-        #     testBtn.setStyleSheet(
-        #         "background-color : white;"
-        #     )
-        #     # self.formLayout.addWidget(testBtn)
-        #     testBtn.setMinimumSize(QtCore.QSize(380, 50))
-        #     testbtn2 = QtWidgets.QPushButton(self.scrollAreaWidgetContents)
-        #     testbtn2.setStyleSheet(
-        #         "background-color : white;"
-        #     )
-        #     testbtn2.setMinimumSize(QtCore.QSize(20, 50))
-        #     # self.formLayout.addRow(testBtn, testBtn)
-        #     self.formLayout.setWidget(index, QtWidgets.QFormLayout.LabelRole, testBtn)
-        #     self.formLayout.setWidget(index, QtWidgets.QFormLayout.FieldRole, testbtn2)
-
 
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
 
@@ -344,7 +349,7 @@ class MainUi:
 
 
         self.MainWindow.setCentralWidget(self.centralWidget)
-        self.stackedWidget.setCurrentIndex(3)
+        self.stackedWidget.setCurrentIndex(0)
         self.MainWindow.show()
 
 

@@ -14,7 +14,7 @@ class Database:
     def createTable(self):
         self.cursor.execute("CREATE TABLE IF NOT EXISTS member (id TEXT PRIMARY KEY, pw TEXT, name TEXT)")
         self.cursor.execute("CREATE TABLE IF NOT EXISTS playlist (no INTEGER PRIMARY KEY AUTOINCREMENT, id TEXT, name TEXT, FOREIGN KEY(id) REFERENCES member(id) ON DELETE CASCADE) ")
-        self.cursor.execute("CREATE TABLE IF NOT EXISTS video (no INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, url TEXT, playlist TEXT, FOREIGN KEY(playlist) REFERENCES playlist (no) ON DELETE CASCADE) ")
+        self.cursor.execute("CREATE TABLE IF NOT EXISTS video (no INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, url TEXT, playlist INTEGER, FOREIGN KEY(playlist) REFERENCES playlist (no) ON DELETE CASCADE) ")
         
     def createData(self, tableName, dataCondition, dataList):
         tmpData = "INSERT INTO " + tableName + " ("

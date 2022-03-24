@@ -1,7 +1,8 @@
-from AddPlaylistWindow import AddPlaylistWindow
+from AddWindow import AddPlaylistWindow
 from PyQt5 import QtWidgets, QtCore, QtGui
 from Database import Database
 from Common import Common
+from VideoPage import VideoPage
 import sys
 class PlaylistPage(QtWidgets.QDialog):
     def __init__(self, mainUi, userName, nowId):
@@ -85,6 +86,7 @@ class PlaylistPage(QtWidgets.QDialog):
 
     def playlistBtnEvent(self, event, point):
         print(self.playlistNoList[point])
+        self.videoPage = VideoPage(self.mainUi, self.playlistNoList[point])
         self.mainUi.stackedWidget.setCurrentIndex(3)
 
         

@@ -50,8 +50,8 @@ class AddPlaylistWindow:
     
 
 class AddVideoWindow:
-    def __init__(self):
-        self.common = Common()
+    def __init__(self, mainUi):
+        self.common = Common(mainUi)
         self.Mainwindow = QtWidgets.QMainWindow()
         self.Mainwindow.setFixedSize(580, 130)
         self.Mainwindow.setWindowTitle("Add Video")
