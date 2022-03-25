@@ -272,43 +272,46 @@ class MainUi:
         self.videoScrollArea.setWidget(self.videoScrollWidgetContents)
 
      
-        # self.videoTable = QtWidgets.QListWidget(self.videoPage)
-        # self.videoTable.setGeometry(QtCore.QRect(1250, 120, 190, 550))
-        # self.videoTable.setStyleSheet(
-        #     "color : white"
-        # )
-        # self.testIcon = QtGui.QIcon('./가위.gif')
-        # self.iconItem = QtWidgets.QListWidgetItem(self.testIcon, "테스트")
-        # self.font = self.common.setFont("Malgun Gothic", 20, False, [])
-        # self.iconItem.setFont(self.font)
-        # self.videoTable.setFont(self.font)
-        # self.videoTable.autoScrollMargin()
-        # for i in range(0, 40):
-        #     self.videoTable.insertItem(i, self.iconItem)
-
-
-
-        formLayout = QtWidgets.QFormLayout()
-        groupbox = QtWidgets.QGroupBox()
-        
-
-
-        self.videoDeleteBtn = QtWidgets.QPushButton(self.videoPage)
-        self.videoDeleteBtn.setGeometry(QtCore.QRect(1480, 120, 100, 30))
-        self.videoDeleteBtn.setStyleSheet(
-            "background-color : red;"
-            "color : white;"
-        )
-        self.font = self.common.setFont("Malgun Gothic", 10, True, 75)
-        self.videoDeleteBtn.setFont(self.font)
-        self.videoDeleteBtn.setText("삭제")
-        self.videoDeleteBtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.videoNameLabel = QtWidgets.QLabel(self.videoPage)
         self.videoNameLabel.setGeometry(QtCore.QRect(110, 670, 440, 20))
-        self.videoNameLabel.setStyleSheet(
-            "color :white;"
-        )
-    
+        self.videoNameLabel.setStyleSheet("color : white;")
+        self.playerBtnList = []
+        self.playerBtnimageList = ["⏮", "▶", "❚❚", "⏭️", "■"]
+        for index in range(0, 5):
+            playerBtn = QtWidgets.QPushButton(self.videoPage)
+            playerBtn.setGeometry(QtCore.QRect(320 + 120*index, 730, 100, 40))
+            playerBtn.setStyleSheet(
+                "background-color : red;"
+                "color : white;"
+            )
+            playerBtn.setText(self.playerBtnimageList[index])
+            font = QtGui.QFont()
+            font.setPointSize(15)
+            font.setBold(True)
+            font.setWeight(75)
+            
+            playerBtn.setFont(font)
+            playerBtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+            self.playerBtnList.append(playerBtn)
+        self.volumeBar = QtWidgets.QSlider(self.videoPage)
+        self.volumeBar.setGeometry(QtCore.QRect(940, 680, 160, 20))
+        self.volumeBar.setOrientation(QtCore.Qt.Horizontal)
+        self.volumeBar.setToolTip("Position")
+        self.volumeBar.setMaximum(100)
+        self.volumeBar.sliderMoved
+
+
+        self.videoFrame = QtWidgets.QFrame(self.videoPage)
+        self.videoFrame.setGeometry(QtCore.QRect(110, 60, 1000, 600))
+        self.videoFrame.setAutoFillBackground(True)
+        
+            
+
+
+       
+
+
+        
     
         
         
