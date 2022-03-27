@@ -7,15 +7,7 @@ class RegisterPage:
         self.mainUi.idDupBtn.clicked.connect(self.dupCheckBtnEvent)
         self.mainUi.registerApplyBtn.clicked.connect(self.registerBtnEvent)
         self.mainUi.registerBackBtn.clicked.connect(self.regiBackBtnEvent)
-        # self.mainUi.idDupBtn.clicked.connect(self.testdelete)
-
-
         self.dupCheck = False
-
-    # def testdelete(self):
-    #     self.mainUi.idDupBtn.deleteLater()   버튼지우는방법
-
-
 
     def dupCheckBtnEvent(self):
         db = Database()

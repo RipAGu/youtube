@@ -37,6 +37,7 @@ class LoginPage:
     def registerPageBtnEvent(self):
         self.regiPage = RegisterPage(self.mainUi)
         self.mainUi.stackedWidget.setCurrentIndex(1)
+        
 
     
 

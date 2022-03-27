@@ -256,6 +256,7 @@ class MainUi:
         self.videoScrollWidgetContents = QtWidgets.QWidget()
         self.videoScrollWidgetContents.setGeometry(QtCore.QRect(-1, 0, 230, 635))
         self.videoFormLayout = QtWidgets.QFormLayout(self.videoScrollWidgetContents)
+        
 
         # self.groupBox = QtWidgets.QGroupBox(self.videoScrollWidgetContents)
         # self.groupBox.setMinimumSize(QtCore.QSize(200, 200))

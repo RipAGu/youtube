@@ -88,10 +88,8 @@ class PlaylistPage(QtWidgets.QDialog):
         print(self.playlistNoList[point])
         self.videoPage = VideoPage(self.mainUi, self.playlistNoList[point])
         self.mainUi.stackedWidget.setCurrentIndex(3)
+        del self.videoPage
 
-        
-        
-        pass
 
     def deleteBtnEvent(self, event, point):
         information = Common(self.mainUi)
@@ -144,7 +142,7 @@ class PlaylistPage(QtWidgets.QDialog):
             self.deleteBtnList[index].clicked.connect(lambda event, nowIndex = index : self.deleteBtnEvent(event, nowIndex))
 
         print(self.playlistList)
-        pass
+      
         
     
         
