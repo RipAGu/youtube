@@ -1,10 +1,5 @@
-import platform
-import os
-import sys
+
 import time
-from turtle import Turtle
-from numpy import insert
-from pytest import Instance
 import vlc
 from urllib import request
 from AddWindow import AddVideoWindow
@@ -149,9 +144,7 @@ class VideoPage:
                     print("접근")
                 
                     
-                    
-                
-        
+
         self.mediaPlayer = None
         playUrlList = []
         self.instance = vlc.Instance()
@@ -169,6 +162,7 @@ class VideoPage:
             media = self.instance.media_new(best.url)
             self.mediaList.add_media(media)
             self.mediaPlayer.set_media_list(self.mediaList)
+            
         self.new = self.instance.media_player_new()
         self.mainUi.volumeBar.setValue(self.new.audio_get_volume())
         self.mainUi.volumeBar.valueChanged.connect(self.setVolume)
@@ -177,7 +171,7 @@ class VideoPage:
 
         self.mediaPlayer.play()
 
-        time.sleep(1)
+        # time.sleep(1) 멤버변수가 있어서 필요X 
 
     def setVolume(self, volume):
         self.new.audio_set_volume(volume)

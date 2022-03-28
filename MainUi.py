@@ -256,20 +256,6 @@ class MainUi:
         self.videoScrollWidgetContents = QtWidgets.QWidget()
         self.videoScrollWidgetContents.setGeometry(QtCore.QRect(-1, 0, 230, 635))
         self.videoFormLayout = QtWidgets.QFormLayout(self.videoScrollWidgetContents)
-        
-
-        # self.groupBox = QtWidgets.QGroupBox(self.videoScrollWidgetContents)
-        # self.groupBox.setMinimumSize(QtCore.QSize(200, 200))
-        # self.font = self.common.setFont("Malgun Gothic", 10, False, [])
-        # self.groupBox.setFont(self.font)
-        # self.groupBox.setStyleSheet("color : white;")
-        # self.groupBox.setTitle("test")
-        # self.testBtn = QtWidgets.QPushButton(self.groupBox)
-        # self.testBtn.setGeometry(QtCore.QRect(50, 140, 90, 30))
-        # self.testBtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        # self.testBtn.setStyleSheet("background-color : red;")
-
-        # self.videoFormLayout.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.groupBox)
         self.videoScrollArea.setWidget(self.videoScrollWidgetContents)
 
      
