@@ -22,21 +22,17 @@ class PlaylistPage(QtWidgets.QDialog):
         self.db = Database()
         self.updatePlaylist()
         
-        
-
     def addPlaylistBtnEvent(self):
         self.addPage = AddPlaylistWindow()
         self.addPage.createBtn.clicked.connect(self.createBtnEvent)
         self.addPage.nameInput.returnPressed.connect(self.createBtnEvent)
 
-    
     def createBtnEvent(self):
         information = Common(self.mainUi)
         self.playlistName = self.addPage.nameInput.text()
         if len(self.playlistName) == 0:
             information.InfoMessage("Warning", "최소 1자를 입력해주세요!", 2)
         else:
-            nameList = []
             self.db.createData("playlist", ["id", "name"], [self.nowId, self.playlistName])
             self.addPage.Mainwindow.close()
             self.addPlaylist()
@@ -46,9 +42,7 @@ class PlaylistPage(QtWidgets.QDialog):
         lastNo = sum(lastNo, ())
         print(lastNo)
         self.playlistNoList.append(lastNo[-1])
-        
         print(self.playlistNoList)
-        
         self.playlistList.append(self.playlistName)
         tmpbtn = QtWidgets.QPushButton(self.mainUi.scrollAreaWidgetContents)
         tmpbtn.setStyleSheet(
@@ -109,8 +103,7 @@ class PlaylistPage(QtWidgets.QDialog):
                 self.deleteBtnList[index].disconnect()
                 self.playlistBtnList[index].clicked.connect(lambda event, nowIndex = index : self.playlistBtnEvent(event, nowIndex))
                 self.deleteBtnList[index].clicked.connect(lambda event, nowIndex = index: self.deleteBtnEvent(event, nowIndex))
-        else:
-            pass
+
     def updatePlaylist(self):
         self.playlistNoList = self.db.readData(["no"], "playlist", "id", [self.nowId])
         self.playlistNoList = sum(self.playlistNoList, ())
@@ -140,8 +133,6 @@ class PlaylistPage(QtWidgets.QDialog):
             self.deleteBtnList.append(tmpdeleteBtn)
             self.playlistBtnList[index].clicked.connect(lambda event, nowIndex = index : self.playlistBtnEvent(event, nowIndex))
             self.deleteBtnList[index].clicked.connect(lambda event, nowIndex = index : self.deleteBtnEvent(event, nowIndex))
-
-        print(self.playlistList)
       
         
     

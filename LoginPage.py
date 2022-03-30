@@ -9,13 +9,11 @@ class LoginPage:
         self.mainUi.registerPageBtn.clicked.connect(self.registerPageBtnEvent)
         self.mainUi.idPwInputList[1].returnPressed.connect(self.loginBtnEvent)
 
-
-
     def loginBtnEvent(self):
         db = Database()
+        nowPwList = []
         idValue = self.mainUi.idPwInputList[0].text()
         pwValue = self.mainUi.idPwInputList[1].text()
-        nowPwList = []
         nowPwList = db.readData(["pw"], "member", "id", [idValue])
         nowPwList = sum(nowPwList, ())
         if len(idValue) == 0:
@@ -26,11 +24,8 @@ class LoginPage:
             self.mainUi.idPwInputList[0].clear()
             self.mainUi.idPwInputList[1].clear()
             nowName = db.readData(["name"], "member", "id", [idValue])    
-                  
             self.playListPage = PlaylistPage(self.mainUi, nowName, idValue)
             self.mainUi.stackedWidget.setCurrentIndex(2)
-            
-
         else:
             self.mainUi.loginErrorLabel.setText("아이디 또는 비밀번호를 확인해주세요!")
 

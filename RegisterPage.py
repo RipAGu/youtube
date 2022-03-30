@@ -28,9 +28,9 @@ class RegisterPage:
 
     def registerBtnEvent(self):
         db = Database()
+        pwValueList = [] 
         information = Common(self.mainUi)
         idValue = self.mainUi.registerIdInput.text()
-        pwValueList = [] 
         for index in range(0, 2):
             pwValueList.append(self.mainUi.registerPwInputList[index].text())
         nameValue = self.mainUi.registerNameInput.text()

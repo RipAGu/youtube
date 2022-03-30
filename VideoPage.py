@@ -1,8 +1,4 @@
-
-from itertools import groupby
-import time
 import vlc
-from urllib import request
 from AddWindow import AddVideoWindow
 from PyQt5 import QtWidgets, QtCore, QtGui
 from Database import Database
@@ -20,7 +16,6 @@ class VideoPage:
         self.url = None
         self.groupBoxList = []
         self.urlList = []
-        self.titleList = []
         self.thumbBtnList = []
         self.deleteBtnList = []
         self.videoNoList = []
@@ -30,9 +25,7 @@ class VideoPage:
         self.media = None
         self.mediaPlayer = None
         self.threadList = []
-        
         self.updateVideo()
-    
 
     def playerBtnEvent(self, event, btnNo):
         if self.mediaPlayer != None:
@@ -50,17 +43,19 @@ class VideoPage:
                 self.mediaPlayer.stop()
 
     def videoPageBackBtn(self):
+        if self.mediaPlayer != None:
+            self.new.release()
+            self.mediaPlayer.release()
         for index in range(0, len(self.threadList)):
             self.threadList[index].quit()
-        if self.mediaPlayer != None:
-            self.mediaPlayer.stop()
+        # if self.mediaPlayer != None:
+        #     self.mediaPlayer.stop()
         self.mainUi.addVideoBtn.clicked.disconnect()
         self.mainUi.videoPageBackBtn.clicked.disconnect()
         for index in range(0, len(self.videoNoList)):
             self.thumbBtnList[index].clicked.disconnect()
             self.deleteBtnList[index].clicked.disconnect()
             self.groupBoxList[index].deleteLater()
-        
         for index in range(0, 5):
             self.mainUi.playerBtnList[index].clicked.disconnect()
         try:
@@ -69,7 +64,27 @@ class VideoPage:
             pass
         self.mainUi.stackedWidget.setCurrentIndex(2)
      
-
+    def createVideoUi(self):
+        groupBox = QtWidgets.QGroupBox(self.mainUi.videoScrollWidgetContents)
+        groupBox.setMinimumSize(QtCore.QSize(200, 200))
+        self.font = self.common.setFont("Malgun Gothic", 10, False, [])
+        groupBox.setFont(self.font)
+        groupBox.setStyleSheet("color : white;")
+        self.groupBoxList.append(groupBox)     
+        thumbBtn = QtWidgets.QPushButton(groupBox)
+        thumbBtn.setGeometry(QtCore.QRect(60, 40, 80, 80))
+        thumbBtn.setStyleSheet("background-color : white;")
+        deleteVideoBtn = QtWidgets.QPushButton(groupBox)
+        deleteVideoBtn.setGeometry(QtCore.QRect(40, 140, 120, 25))
+        deleteVideoBtn.setStyleSheet(
+            "background-color : red;"
+            "color : white;"
+        )
+        deleteVideoBtn.setText("삭제")
+        thumbBtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        deleteVideoBtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.thumbBtnList.append(thumbBtn)
+        self.deleteBtnList.append(deleteVideoBtn)
 
     def addVideoBtnEvent(self):
         self.addPage = AddVideoWindow(self.mainUi)
@@ -78,7 +93,6 @@ class VideoPage:
 
     def createBtnEvent(self):
         information = Common(self.mainUi)
-        
         self.url = self.addPage.urlInput.text()
         if len(self.url) == 0:
             information.InfoMessage("Warning", "최소 1자를 입력해주세요!", 3)
@@ -89,39 +103,17 @@ class VideoPage:
         tmpUrl = self.addPage.urlInput.text()
         self.addPage.Mainwindow.close()
         try:
+            pafy.new(tmpUrl)
             self.db.createData("video", ["url", "playlist"], [tmpUrl, self.playlistNo])
             lastNo = self.db.readData(["no"], "video", "url", [tmpUrl])
             lastNo = sum(lastNo, ())
             self.videoNoList.append(lastNo[-1])
-
-            groupBox = QtWidgets.QGroupBox(self.mainUi.videoScrollWidgetContents)
-            groupBox.setMinimumSize(QtCore.QSize(200, 200))
-            self.font = self.common.setFont("Malgun Gothic", 10, False, [])
-            groupBox.setFont(self.font)
-            groupBox.setStyleSheet("color : white;")
-            self.groupBoxList.append(groupBox)
             self.urlList.append(tmpUrl)
-            
-            thumbBtn = QtWidgets.QPushButton(groupBox)
-            thumbBtn.setGeometry(QtCore.QRect(60, 40, 80, 80))
-            thumbBtn.setStyleSheet("background-color : white;")
-            deleteVideoBtn = QtWidgets.QPushButton(groupBox)
-            deleteVideoBtn.setGeometry(QtCore.QRect(40, 140, 120, 25))
-            deleteVideoBtn.setStyleSheet(
-                "background-color : red;"
-                "color : white;"
-            )
-            deleteVideoBtn.setText("삭제")
-            thumbBtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-            deleteVideoBtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-
-            self.thumbBtnList.append(thumbBtn)
-            self.deleteBtnList.append(deleteVideoBtn)
+            self.createVideoUi()
             point = len(self.groupBoxList)-1
             self.mainUi.videoFormLayout.setWidget(point+1, QtWidgets.QFormLayout.FieldRole, self.groupBoxList[point])
             self.thumbBtnList[point].clicked.connect(lambda event, nowIndex = point : self.thumbBtnEvent(event, nowIndex))
             self.deleteBtnList[point].clicked.connect(lambda event, nowIndex = point : self.deleteBtnEvent(event, nowIndex))
-
             videothread = VideoThread(tmpUrl, point, self.thumbBtnList[point], self.groupBoxList[point])
             self.threadList.append(videothread)
             self.threadList[-1].start()
@@ -132,40 +124,34 @@ class VideoPage:
     def thumbBtnEvent(self, event, point):
         self.nowPlay = point
         if self.mediaPlayer != None:
-            print()
-            if self.mediaPlayer.is_playing() == True:
-                self.mediaPlayer.stop()
-            elif self.mediaPlayer.is_playing() == False:
-                print(self.mediaPlayer.get_state())
-                if self.mediaPlayer.get_state() == 6:
-                    self.new.release()
-                    self.mediaPlayer.release()
-                    print("접근")
+
+            self.new.release()
+            self.mediaPlayer.release()
+            # if self.mediaPlayer.is_playing() == True:
+            #     self.mediaPlayer.stop()
+            # elif self.mediaPlayer.is_playing() == False:
+            #     print(self.mediaPlayer.get_state())
+            #     if self.mediaPlayer.get_state() == 6:
+            #         self.new.release()
+            #         self.mediaPlayer.release()
         self.mediaPlayer = None
         playUrlList = []
         self.instance = vlc.Instance()
         self.mediaPlayer = self.instance.media_list_player_new()
-        
         self.mediaList = self.instance.media_list_new()
         self.media = None
-        
         for index in range(point, len(self.urlList)):
             video = pafy.new(self.urlList[index])
-
-
             best = video.getbest()
             playUrlList.append(best.url)
             media = self.instance.media_new(best.url)
             self.mediaList.add_media(media)
         self.mediaPlayer.set_media_list(self.mediaList)
-        
-            
         self.new = self.instance.media_player_new()
         self.mainUi.volumeBar.setValue(self.new.audio_get_volume())
         self.mainUi.volumeBar.valueChanged.connect(self.setVolume)
         self.new.set_hwnd(int(self.mainUi.videoFrame.winId()))
         self.mediaPlayer.set_media_player(self.new)
-
         self.mediaPlayer.play()
 
         # time.sleep(1) 멤버변수가 있어서 필요X 
@@ -180,56 +166,27 @@ class VideoPage:
             self.mainUi.videoFormLayout.removeRow(self.groupBoxList[point])
             print(self.videoNoList)
             self.db.deleteData("video", "no", [self.videoNoList[point]])
-
             del self.groupBoxList[point]
             del self.urlList[point] 
-            del self.titleList[point]
             del self.thumbBtnList[point]
             del self.deleteBtnList[point]
             del self.videoNoList[point]
-
             for index in range(point, len(self.groupBoxList)):
                 self.thumbBtnList[index].disconnect()
                 self.deleteBtnList[index].disconnect()
                 self.thumbBtnList[index].clicked.connect(lambda event, nowIndex = index : self.thumbBtnEvent(event, nowIndex))
                 self.deleteBtnList[index].clicked.connect(lambda event, nowIndex = index : self.deleteBtnEvent(event, nowIndex))
 
-
-        
     def updateVideo(self):
         dataList = self.db.readData(["no", "url"], "video", "playlist", [self.playlistNo])
         self.threadList = []
         for index in range(0, len(dataList)):
             self.videoNoList.append(dataList[index][0])
-           
             self.urlList.append(dataList[index][1])
-        print(self.urlList)
-        
-
         for index in range(0, len(self.videoNoList)):
             videoThread = None
-            groupBox = QtWidgets.QGroupBox(self.mainUi.videoScrollWidgetContents)
-            groupBox.setMinimumSize(QtCore.QSize(200, 200))
-            self.font = self.common.setFont("Malgun Gothic", 10, False, [])
-            groupBox.setFont(self.font)
-            groupBox.setStyleSheet("color : white;")
-            self.groupBoxList.append(groupBox)
-            thumbBtn = QtWidgets.QPushButton(groupBox)
-            thumbBtn.setGeometry(QtCore.QRect(60, 40, 80, 80))
-            thumbBtn.setStyleSheet("background-color : white;")
-       
-            deleteVideoBtn = QtWidgets.QPushButton(groupBox)
-            deleteVideoBtn.setGeometry(QtCore.QRect(40, 140, 120, 25))
-            deleteVideoBtn.setStyleSheet(
-                "background-color : red;"
-                "color : white;"
-            )
-            deleteVideoBtn.setText("삭제")
-            thumbBtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-            deleteVideoBtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-            self.thumbBtnList.append(thumbBtn)
-            self.deleteBtnList.append(deleteVideoBtn)
-            self.mainUi.videoFormLayout.setWidget(index, QtWidgets.QFormLayout.FieldRole, groupBox)
+            self.createVideoUi()
+            self.mainUi.videoFormLayout.setWidget(index, QtWidgets.QFormLayout.FieldRole, self.groupBoxList[index])
             self.thumbBtnList[index].clicked.connect(lambda event, nowIndex = index : self.thumbBtnEvent(event, nowIndex))
             self.deleteBtnList[index].clicked.connect(lambda event, nowIndex = index : self.deleteBtnEvent(event, nowIndex))
 
@@ -238,11 +195,7 @@ class VideoPage:
             self.threadList.append(videoThread)
             self.threadList[index].start()
 
-           
-
-
-
-   
+        
 class VideoThread(QtCore.QThread, QtCore.QObject):
     change = QtCore.pyqtSignal()
     def __init__(self, url, point, btn, groupBox):
@@ -265,10 +218,11 @@ class VideoThread(QtCore.QThread, QtCore.QObject):
         self.image = urllib.request.urlopen(self.videoThumbnail).read()
         pixmap = QtGui.QPixmap()
         pixmap.loadFromData(self.image)
+        pixmap.scaled(80, 100)
         icon = QtGui.QIcon()
         icon.addPixmap(pixmap)
         self.btn.setIcon(icon)
-        self.btn.setIconSize(QtCore.QSize(75, 75))
+        self.btn.setIconSize(QtCore.QSize(80, 80))
 
     
 
