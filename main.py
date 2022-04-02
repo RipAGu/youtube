@@ -9,7 +9,6 @@ class startProgram:
         self.loginPage = LoginPage(self.mainUi)
 
 if __name__ == "__main__":
-    os.system('pause')
     app = QtWidgets.QApplication(sys.argv) 
     test = startProgram()
     sys.exit(app.exec_())

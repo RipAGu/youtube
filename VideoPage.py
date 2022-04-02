@@ -48,8 +48,6 @@ class VideoPage:
             self.mediaPlayer.release()
         for index in range(0, len(self.threadList)):
             self.threadList[index].quit()
-        # if self.mediaPlayer != None:
-        #     self.mediaPlayer.stop()
         self.mainUi.addVideoBtn.clicked.disconnect()
         self.mainUi.videoPageBackBtn.clicked.disconnect()
         for index in range(0, len(self.videoNoList)):
@@ -127,13 +125,6 @@ class VideoPage:
 
             self.new.release()
             self.mediaPlayer.release()
-            # if self.mediaPlayer.is_playing() == True:
-            #     self.mediaPlayer.stop()
-            # elif self.mediaPlayer.is_playing() == False:
-            #     print(self.mediaPlayer.get_state())
-            #     if self.mediaPlayer.get_state() == 6:
-            #         self.new.release()
-            #         self.mediaPlayer.release()
         self.mediaPlayer = None
         playUrlList = []
         self.instance = vlc.Instance()

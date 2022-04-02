@@ -3,7 +3,6 @@ from PyQt5 import QtWidgets, QtCore, QtGui
 from Database import Database
 from Common import Common
 from VideoPage import VideoPage
-import sys
 class PlaylistPage(QtWidgets.QDialog):
     def __init__(self, mainUi, userName, nowId):
         super().__init__()

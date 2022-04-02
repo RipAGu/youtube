@@ -1,6 +1,5 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import sys
-from pyparsing import common_html_entity
 from sympy import Q
 from platform import system
 from Common import Common
