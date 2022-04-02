@@ -17,7 +17,6 @@
 
 [공부한 곳](https://stageus.co.kr)
 
-![해당이미지는 나오지 않음](./logo.png)
 
 ```python
 print("hello world")
@@ -25,3 +24,8 @@ a = 10
 b = 10
 print(a+b)
 ```
+
+|순번|이름|이메일|
+|---|---|---|
+|1|송영현|dudgus907@naver.com|
+|2|~~|test@naver.com|
