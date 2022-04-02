@@ -14,3 +14,14 @@
 *이텔릭체*
 
 ~~취소선~~
+
+[공부한 곳](https://stageus.co.kr)
+
+![해당이미지는 나오지 않음](./logo.png)
+
+```python
+print("hello world")
+a = 10
+b = 10
+print(a+b)
+```
